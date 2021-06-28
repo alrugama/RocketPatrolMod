@@ -7,7 +7,14 @@ class Menu extends Phaser.Scene {
         //Load audio
         this.load.audio('sfx_select', './assets/blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/explosion38.wav');
+        this.load.audio('sfx_exp_01', './assets/explosion_1.wav');
+        this.load.audio('sfx_exp_02', './assets/explosion_2.wav');
+        this.load.audio('sfx_exp_03', './assets/explosion_3.wav');
+        this.load.audio('sfx_exp_04', './assets/explosion_4.wav');
         this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+        
+        //Audio track
+        this.load.audio('sfx_soundtrack', './assets/soundtrack.wav')
     }
     
     create(){
@@ -37,6 +44,12 @@ class Menu extends Phaser.Scene {
         //define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+        //Play soundtrack
+        var music = this.sound.add('sfx_soundtrack');
+        music.setLoop(true);
+        music.play();
+        //this.sound.play('sfx_soundtrack');
     }
 
     update(){

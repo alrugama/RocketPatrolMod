@@ -48,6 +48,8 @@ class Play extends Phaser.Scene {
 
         //Initilize score
         this.p1Score = 0;
+        //initialize high score
+        this.p1HS = 0;
 
         //Display score
         let scoreConfig = {
@@ -64,6 +66,7 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score,
             scoreConfig);
+        
 
         //GAME OVER flag
         this.gameOver = false;
@@ -75,10 +78,18 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu',
             scoreConfig).setOrigin(0.5);
             this.gameOver = true;
+
+            //High score
+            if(this.p1Score > this.p1HS){this.p1HS = this.p1Score;}
+            this.add.text(game.config.width/2, game.config.height/2 - 64, 'High Score :' + this.p1HS, scoreConfig).setOrigin(0.5);
         }, null, this);
 
         //initilize the speed update
         this.speedUpdate = false;
+                
+        //Play soundtrack
+        //this.sound.play('sfx_soundtrack');
+
     }
     
     update(){
@@ -151,6 +162,6 @@ class Play extends Phaser.Scene {
         //Score addition and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
-        this.sound.play('sfx_explosion');
+        this.sound.play('sfx_explosion');/////////////////////////update
     }
 }
