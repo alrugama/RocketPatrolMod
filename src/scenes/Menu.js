@@ -3,10 +3,6 @@ class Menu extends Phaser.Scene {
         super("menuScene");
     }
 
-    init() {
-
-    }
-
     preload() {
         //Load audio
         this.load.audio('sfx_select', './assets/blip_select12.wav');
@@ -27,8 +23,6 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        //this.add.text(20, 20, "Rocket Patrol Menu");
-        //this.scene.start("playScene");
 
         //Show menu text
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -

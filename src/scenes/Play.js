@@ -2,10 +2,6 @@ class Play extends Phaser.Scene {
     constructor(){
         super("playScene");
     }
-    
-    init() {
-
-    }
 
     preload() {
         // Load images/tile sprites
@@ -80,6 +76,9 @@ class Play extends Phaser.Scene {
             scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+
+        //initilize the speed update
+        this.speedUpdate = false;
     }
     
     update(){
@@ -88,7 +87,16 @@ class Play extends Phaser.Scene {
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)){
             this.scene.start('menuScene');
         }
-
+        
+        
+        //Increase the ship movement speed
+        if(this.clock.elapsed >= 30000 && !this.speedUpdate){
+            this.ship01.moveSpeed += 1;
+            this.ship02.moveSpeed += 1;
+            this.ship03.moveSpeed += 1;
+            this.speedUpdate = true;
+        }
+        
         //update enemy
         if(!this.gameOver){
             this.p1Rocket.update();
