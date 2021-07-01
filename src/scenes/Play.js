@@ -8,6 +8,13 @@ class Play extends Phaser.Scene {
         this.load.image('rocket', './assets/rocket.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
+        this.load.image('field', './assets/grassfield.png');
+        this.load.image('bg', './assets/background.png');
+        this.load.image('ufo', './assets/ufo.png');
+        this.load.image('ufo2', './assets/ufo_2.png');
+
+        //Audio track
+        this.load.audio('sfx_soundtrack', './assets/soundtrack.wav')
 
         //Load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0,
@@ -16,7 +23,9 @@ class Play extends Phaser.Scene {
     
     create(){
         //Place tile sprite
-        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0,0);
+        //this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0,0);
+        this.starfield = this.add.tileSprite(0, 0, 1280, 960, 'bg').setOrigin(0,0);
+
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0);
 
@@ -33,6 +42,10 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0, 0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0, 0);
+
+        //Add UFO enemy(x1)
+        this.ufo = new Ufo(this, game.config.width, borderUISize*4, 'ufo2', 0, 40).setOrigin(0, 0);
+
         //Define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -87,8 +100,11 @@ class Play extends Phaser.Scene {
         //initilize the speed update
         this.speedUpdate = false;
                 
+
         //Play soundtrack
-        //this.sound.play('sfx_soundtrack');
+        var music = this.sound.add('sfx_soundtrack');
+        music.setLoop(true);
+        music.play();
 
     }
     
@@ -105,6 +121,7 @@ class Play extends Phaser.Scene {
             this.ship01.moveSpeed += 1;
             this.ship02.moveSpeed += 1;
             this.ship03.moveSpeed += 1;
+            this.ufo.moveSpeed += 1;
             this.speedUpdate = true;
         }
         
@@ -114,6 +131,7 @@ class Play extends Phaser.Scene {
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
+            this.ufo.update();
         }
 
         //Check collision
@@ -131,6 +149,11 @@ class Play extends Phaser.Scene {
             //console.log('kaboom ship 01');
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+        }
+        if(this.checkCollision(this.p1Rocket, this.ufo)){
+            //console.log('kaboom ship 01');
+            this.p1Rocket.reset();
+            this.shipExplode(this.ufo);
         }
     }
 
@@ -162,6 +185,16 @@ class Play extends Phaser.Scene {
         //Score addition and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
-        this.sound.play('sfx_explosion');/////////////////////////update
+        this.rand = Math.floor(Math.random() * 4);
+        if(this.rand == 0){
+            this.sound.play('sfx_exp_01');
+        }else if(this.rand == 1){
+            this.sound.play('sfx_exp_02');
+        }else if(this.rand == 2){
+            this.sound.play('sfx_exp_03');
+        }else{
+            this.sound.play('sfx_exp_04');
+        }
+        //this.sound.play('sfx_explosion');/////////////////////////update
     }
 }

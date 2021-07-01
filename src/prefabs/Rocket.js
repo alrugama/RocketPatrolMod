@@ -6,25 +6,12 @@ class Rocket extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         this.isFiring = false;
         this.moveSpeed = 2;
+
         //Add sound
         this.sfxRocket = scene.sound.add('sfx_rocket');
+
     }
-    /*
-    create(){
-        let fireConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 100
-        }
-    }
-    */
+
     update() {
         /*
         //left/right movement
@@ -36,6 +23,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
             }
         }
         */
+       
         if(keyLEFT.isDown && this.x >= borderUISize + this.width){
             this.x -= this.moveSpeed;
         }else if(keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width){
@@ -46,6 +34,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring){
             this.isFiring = true;
             this.sfxRocket.play();
+            //this.textRocket = game.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, 'Fire',
+            //game.menuConfig);
         }
 
         //If fires move up
