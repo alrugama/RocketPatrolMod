@@ -21,15 +21,12 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_soundtrack', './assets/soundtrack.wav')
 
         //Load spritesheet
-        //this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0,
-        //endFrame: 9});
         this.load.spritesheet('boom', './assets/boom_2.png', {frameWidth: 64, frameHeight: 32, startFrame: 0,
             endFrame: 11});
     }
     
     create(){
         //Place tile sprite
-        //this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0,0);
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'bg_2').setOrigin(0,0);
 
         // green UI background
