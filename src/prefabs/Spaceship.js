@@ -7,6 +7,16 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     }
 
     update(){
+        /*
+        //random direction
+        this.direct = Math.floor(Math.random() * 2);
+        if(this.direct == 0){
+            //Move spaceship left
+            this.x += this.moveSpeed;
+        }else{
+            //Move spaceship left
+            this.x -= this.moveSpeed;
+        }*/
         //Move spaceship left
         this.x -= this.moveSpeed;
 
